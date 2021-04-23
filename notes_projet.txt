@@ -1,0 +1,10 @@
+Bombzzle Plus
+
+Genre: Puzzle
+
+Elevator Pitch
+Bombzzle Plus est un jeu de Puzzle où il faut exploser des chaînes de bloc pour gagner des points. Une bombe apparaît sur la planche de jeu et il faut la positioner pour causer la plus grosse explosion possible. Les blocs similaires adjacents explosent ensemble.
+
+Résolution SNES: 256×224
+16:9
+Résolution cible: 426x240
