@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="BombzzlePlus"
-run/main_scene="res://MainScene.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Scenes/MainScene.tscn"
+config/icon="res://Textures/System/icon.png"
+
+[autoload]
+
+BoardManager="*res://Scenes/BoardManager.tscn"
 
 [display]
 
