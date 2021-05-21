@@ -36,6 +36,7 @@ func _input(event):
 						BoardManager.board[currentSelection.x - 1][currentSelection.y - 1] = secondSelectionID
 						BoardManager.board[targetSelection.x - 1][targetSelection.y - 1] = firstSelectionID
 						get_node("../GameBoard").update_tile_map()
+						get_node("../TurnManager").consume_move()
 				
 						currentSelection = Vector2.ZERO
 	pass # Replace with function body.
