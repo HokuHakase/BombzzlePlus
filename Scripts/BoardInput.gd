@@ -29,12 +29,13 @@ func _input(event):
 				print("Sélection réinitialisée")
 			else:
 				if BoardManager.Is_Selection_In_Range(targetSelectionMinusOne):
-					var firstSelectionID = BoardManager.board[currentSelection.x - 1][currentSelection.y - 1]
-					var secondSelectionID = BoardManager.board[targetSelection.x - 1][targetSelection.y - 1]
+					if BoardManager.Is_Selection_Adjecent(currentSelection, targetSelection):
+						var firstSelectionID = BoardManager.board[currentSelection.x - 1][currentSelection.y - 1]
+						var secondSelectionID = BoardManager.board[targetSelection.x - 1][targetSelection.y - 1]
 				
-					BoardManager.board[currentSelection.x - 1][currentSelection.y - 1] = secondSelectionID
-					BoardManager.board[targetSelection.x - 1][targetSelection.y - 1] = firstSelectionID
-					get_node("../GameBoard").update_tile_map()
+						BoardManager.board[currentSelection.x - 1][currentSelection.y - 1] = secondSelectionID
+						BoardManager.board[targetSelection.x - 1][targetSelection.y - 1] = firstSelectionID
+						get_node("../GameBoard").update_tile_map()
 				
-					currentSelection = Vector2.ZERO
+						currentSelection = Vector2.ZERO
 	pass # Replace with function body.

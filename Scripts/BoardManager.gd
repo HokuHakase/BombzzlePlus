@@ -22,3 +22,12 @@ func _ready():
 
 func Is_Selection_In_Range(selection:Vector2):
 	return (selection.x >= 0 && selection.x <= (board.size() - 1)) && (selection.y >= 0 && selection.y <= (board[selection.x].size() - 1))
+
+# Checks if both selections are adjacent. Returns true if adjacent.
+func Is_Selection_Adjecent(firstSelection:Vector2, secondSelection:Vector2):
+	var adjacentTop = (secondSelection == (firstSelection + Vector2(0, -1)))
+	var adjacentBottom = (secondSelection == (firstSelection + Vector2(0, 1)))
+	var adjacentLeft = (secondSelection == (firstSelection + Vector2(-1, 0)))
+	var adjacentRight = (secondSelection == (firstSelection + Vector2(1, 0)))
+	
+	return (adjacentTop || adjacentBottom || adjacentLeft || adjacentRight)
