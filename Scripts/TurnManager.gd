@@ -1,5 +1,7 @@
 extends Node
 
+enum GamePhase {PHASE_BOMBDEPLOY, PHASE_BOMBTICKING, PHASE_BOMBEXPLODE}
+
 # TODO: Add signals
 # Signal that emits when a new phase start
 signal new_phase_start(newGamePhase)
@@ -9,14 +11,15 @@ signal moves_reset(moveRemaining)
 
 # TODO: Add variables
 # Variable that indicates the number of moves per phase (Array)
-var movesPerPhase = [3, 6]
+var movesPerPhase = [3, 6, 1]
 # Variable that tracks the number of moves until the next phase
 var movesRemaining
 # Variable that indicates the current game phase
-var gamePhase
+var gamePhaseCurrent
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gamePhaseCurrent = GamePhase.PHASE_BOMBDEPLOY
 	reset_moves_remaining()
 
 
@@ -25,10 +28,17 @@ func _ready():
 #	pass
 
 func next_phase():
-	pass
+	match gamePhaseCurrent:
+		GamePhase.PHASE_BOMBDEPLOY:
+			gamePhaseCurrent = GamePhase.PHASE_BOMBTICKING
+		GamePhase.PHASE_BOMBTICKING:
+			gamePhaseCurrent = GamePhase.PHASE_BOMBEXPLODE
+		GamePhase.PHASE_BOMBEXPLODE:
+			gamePhaseCurrent = GamePhase.PHASE_BOMBDEPLOY
+	emit_signal("new_phase_start", gamePhaseCurrent)
 
 func reset_moves_remaining():
-	movesRemaining = movesPerPhase[0]
+	movesRemaining = movesPerPhase[gamePhaseCurrent]
 	emit_signal("moves_reset", movesRemaining)
 
 func consume_move():
