@@ -31,3 +31,37 @@ func Is_Selection_Adjecent(firstSelection:Vector2, secondSelection:Vector2):
 	var adjacentRight = (secondSelection == (firstSelection + Vector2(1, 0)))
 	
 	return (adjacentTop || adjacentBottom || adjacentLeft || adjacentRight)
+
+# Finds and return the first tile on the board with that ID
+func FindTileID(tileID):
+	for i in range(board.size()):
+		for j in range(board[i].size()):
+			if(board[i][j] == tileID):
+				return Vector2(i, j)
+
+# Takes a random location on the board and request a bomb spawn
+func GenerateBomb():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	SpawnBomb(Vector2(rng.randi_range(0, 3),rng.randi_range(0, 3)))
+
+# Spawns the bomb
+func SpawnBomb(bombPosition:Vector2):
+	if(Is_Selection_In_Range(bombPosition)):
+		board[bombPosition.x][bombPosition.y] = 5
+	pass
+
+# Explode the bomb and tiles around it
+func DetonateBomb():
+	var bombPosition:Vector2 = FindTileID(5)
+	board[bombPosition.x][bombPosition.y] = 0
+
+# Generate IDs for tiles that are empty (TileID 0)
+func FillEmptyTiles():
+	var rng = RandomNumberGenerator.new()
+
+	for i in range(board.size()):
+		for j in range(board[i].size()):
+			if(board[i][j] == 0):
+				rng.randomize()
+				board[i][j] = rng.randi_range(1, 4)

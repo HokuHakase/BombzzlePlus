@@ -32,11 +32,14 @@ func next_phase():
 	match gamePhaseCurrent:
 		GamePhase.PHASE_BOMBDEPLOY:
 			gamePhaseCurrent = GamePhase.PHASE_BOMBTICKING
+			BoardManager.GenerateBomb()
 			emit_signal("phase_bomb_ticking")
 		GamePhase.PHASE_BOMBTICKING:
 			gamePhaseCurrent = GamePhase.PHASE_BOMBEXPLODE
+			BoardManager.DetonateBomb()
 		GamePhase.PHASE_BOMBEXPLODE:
 			gamePhaseCurrent = GamePhase.PHASE_BOMBDEPLOY
+			BoardManager.FillEmptyTiles()
 	emit_signal("new_phase_start", gamePhaseCurrent)
 
 func reset_moves_remaining():
