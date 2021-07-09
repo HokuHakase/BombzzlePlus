@@ -21,22 +21,22 @@ func GenerateBonusPenaltyTiles():
 # Selects a random tile to be the bonus tile.
 # By default, prevents the tile to be the same as the penalty tile
 func SelectBonusTile(allowDuplicate:bool = false):
-	var bonusTileID = SelectTileID(0)
+	bonusTileID = SelectTileID(0)
 	emit_signal("bonus_tile_changed",bonusTileID)
 
 # Selects a random tile to be the penalty tile.
 # By default, prevents the tile to be the same as the bonus tile
 func SelectPenaltyTile(allowDuplicate:bool = false):
-	var penaltyTileID = SelectTileID(1)
+	penaltyTileID = SelectTileID(1)
 	emit_signal("penalty_tile_changed",penaltyTileID)
 
 # Selects a Tile ID and checks if it is a duplicate
 # targetTile: 0 = Bonus, 1 = Penalty
-# BUG: Selected tiles are sometimes the same even when allowDuplicate = false
+# allowDuplicate only affect penalty tiles (The player won't see the effect of it)
 func SelectTileID(targetTile:int = 0, allowDuplicate:bool = false):
 	var selectedTileID = GetRandomTileID()
 	if (!allowDuplicate):
-		if ((targetTile == 0 && penaltyTileID == selectedTileID) || (targetTile == 1 && bonusTileID == selectedTileID)):
+		if ((targetTile == 1) && (bonusTileID == selectedTileID)):
 			if (selectedTileID >= 4):
 				selectedTileID -= 1
 			else:
