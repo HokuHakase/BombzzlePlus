@@ -5,6 +5,7 @@ enum GamePhase {PHASE_BOMBDEPLOY, PHASE_BOMBTICKING, PHASE_BOMBEXPLODE}
 # TODO: Add signals
 # Signal that emits when a new phase start
 signal new_phase_start(newGamePhase)
+signal phase_bomb_ticking()
 # Signal that emits when a move is used
 signal move_used(moveRemaining)
 signal moves_reset(moveRemaining)
@@ -31,6 +32,7 @@ func next_phase():
 	match gamePhaseCurrent:
 		GamePhase.PHASE_BOMBDEPLOY:
 			gamePhaseCurrent = GamePhase.PHASE_BOMBTICKING
+			emit_signal("phase_bomb_ticking")
 		GamePhase.PHASE_BOMBTICKING:
 			gamePhaseCurrent = GamePhase.PHASE_BOMBEXPLODE
 		GamePhase.PHASE_BOMBEXPLODE:
